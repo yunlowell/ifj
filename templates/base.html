@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>IFJ 스파르타 마켓</title>
+
+    {% block head %}
+    {% endblock head %}
+
+</head>
+
+<body>
+    <div class="navbar">
+
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'accounts:logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="로그아웃" />
+
+        </form>
+        <form action="{% url 'users:profile' %}" method="GET">
+            {% csrf_token %}
+            <input type="submit" value="프로필" />
+        </form>
+
+        {% else %}
+        <a href="{% url 'accounts:login' %}">로그인</a>
+        <a href="{% url 'accounts:signup' %}">회원가입</a>
+        {% endif%}
+    </div>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+
+</body>
+
+</html>

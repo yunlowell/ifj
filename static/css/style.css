@@ -1,0 +1,16 @@
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+}
+
+.navbar form,
+.navbar a {
+    margin-left: 10px;
+}
+
+.container {
+    margin-top: 20px;
+}

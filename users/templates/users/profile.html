@@ -1,13 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h1> {{ request.user.username }}의 프로필 페이지 </h1>
-<h3> 아이디: {{ request.user.username }}</h3>
+<h1>{{ request.user.username }}의 프로필 페이지</h1>
+
+{% if request.user.profile_image %}
+    <img src="{{ request.user.profile_image.url }}" alt="User Profile Image" width="150">
+{% else %}
+    <img src="{% static 'users/user.png' %}" alt="Default Profile Image" width="150">
+{% endif %}
+
+<h3>아이디: {{ request.user.username }}</h3>
 
 <a href="{% url 'accounts:update' %}">회원정보수정</a>
 
 <form action="{% url 'accounts:delete' %}" method="POST">
     {% csrf_token %}
-    <input type="submit" value="회원탈퇴" />
+    <input type="submit" value="회원탈퇴">
 </form>
 {% endblock content %}

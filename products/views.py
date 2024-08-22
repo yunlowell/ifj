@@ -27,3 +27,10 @@ def article_detail(request, pk):
     }
     
     return render(request, "products/product_detail.html", context)
+
+def articles(request):
+    articles = Article.objects.all().order_by("-pk")
+    context = {
+        "articles": articles,
+    }
+    return render(request, "products/products.html", context)

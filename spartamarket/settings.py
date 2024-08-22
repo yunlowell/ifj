@@ -83,6 +83,7 @@ DATABASES = {
     }
 }
 
+
 AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation

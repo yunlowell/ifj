@@ -7,6 +7,7 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from .models import User
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -36,6 +37,10 @@ class CustomUserCreationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         help_text="<li>확인을 위해 이전과 동일한 비밀번호를 입력하세요.</li>"
     )
+
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
 
 
 class CustomUserChangeForm(UserChangeForm):

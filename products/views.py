@@ -3,6 +3,7 @@ from .models import Article
 from .forms import ArticleForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST
+from django.db.models import Count
 
 
 # Create your views here.
@@ -36,7 +37,9 @@ def article_detail(request, pk):
 
 
 def articles(request):
-    articles = Article.objects.all().order_by("-pk")
+    articles = Article.objects.all().annotate(
+        like_count=Count('like_users')).order_by("-pk")
+
     context = {
         "articles": articles,
     }

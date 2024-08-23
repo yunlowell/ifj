@@ -14,7 +14,7 @@
 
 {% for article in articles %}
 <a href="{% url 'articles:article_detail' article.pk %}">
-    <p>[ {{ article.pk }} ] {{ article.title }} 조회수: {{ article.views }}</p>
+    <p>[ {{ article.pk }} ] {{ article.title }} 찜수: {{ article.like_count }} 조회수: {{ article.views }}</p>
 </a>
 
 {% endfor %}

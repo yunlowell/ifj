@@ -12,7 +12,21 @@
 
 <h3>Uesrname: {{ request.user.username }}</h3>
 <h5>가입일: {{ user.date_joined|date:"Y년 m월 d일" }} </h5>
+<h2>{{ request.user.username }}님이 작성한 글</h2>
+    <ul>
+        <!-- 내가 작성한 글 보여주기, 제목만 보이게 누르면 그 글로 이동 -->
+        {% for article in articles %}
+            <li>
+                <a href="{% url 'articles:article_detail' article.pk %}">{{ article.title }}</a>
+            </li>
+        <!-- 작성된 글이 없을 때 문구 띄우고 글 작성하러 가기 링크 추가 -->
+        {% empty %} 
+            <li>아직 작성된 글이 없습니다.</li>
+            <a href="{% url 'articles:articles' %}">글 작성하러 가기</a>
 
+        {% endfor %}
+    </ul>
+    
 <a href="{% url 'accounts:update' %}">회원정보수정</a>
 
 <form action="{% url 'accounts:delete' %}" method="POST">

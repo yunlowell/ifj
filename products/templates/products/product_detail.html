@@ -14,4 +14,9 @@
         <button>수정하기</button>
     </a>
     
+    <form action="{% url 'articles:delete' article.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+    </form>
+    
 {% endblock content %}

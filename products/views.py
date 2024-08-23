@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .models import Article
 from .forms import ArticleForm
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 
 
 # Create your views here.
@@ -55,3 +55,11 @@ def update(request, pk):
     }
     return render(request, "products/update.html", context)
 
+@require_POST
+def delete(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.user.is_authenticated:
+        if article.author == request.user:
+            article = get_object_or_404(Article, pk=pk)
+            article.delete()
+    return redirect("articles:articles")

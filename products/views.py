@@ -21,13 +21,19 @@ def create(request):
     context = {"form": form}
     return render(request, "products/create.html", context)
 
+
 def article_detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
+
+    article.views += 1
+    article.save()
+
     context = {
         "article": article,
     }
-    
+
     return render(request, "products/product_detail.html", context)
+
 
 def articles(request):
     articles = Article.objects.all().order_by("-pk")
@@ -35,6 +41,7 @@ def articles(request):
         "articles": articles,
     }
     return render(request, "products/products.html", context)
+
 
 @login_required
 @require_http_methods(["GET", "POST"])
@@ -48,12 +55,12 @@ def update(request, pk):
     else:
         form = ArticleForm(instance=article)
 
-
     context = {
         "form": form,
         "article": article,
     }
     return render(request, "products/update.html", context)
+
 
 @require_POST
 def delete(request, pk):
@@ -64,12 +71,13 @@ def delete(request, pk):
             article.delete()
     return redirect("articles:articles")
 
+
 @require_POST
 def like(request, pk):
     if request.user.is_authenticated:
         article = get_object_or_404(Article, pk=pk)
         if article.like_users.filter(pk=request.user.pk).exists():
-            article.like_users.remove(request.user) 
+            article.like_users.remove(request.user)
         else:
             article.like_users.add(request.user)
         return redirect("articles:article_detail", pk=pk)

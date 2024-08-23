@@ -10,7 +10,8 @@
     <img src="{% static 'users/user.png' %}" alt="Default Profile Image" width="150">
 {% endif %}
 
-<h3>아이디: {{ request.user.username }}</h3>
+<h3>Uesrname: {{ request.user.username }}</h3>
+<h5>가입일: {{ user.date_joined|date:"Y년 m월 d일" }} </h5>
 
 <a href="{% url 'accounts:update' %}">회원정보수정</a>
 

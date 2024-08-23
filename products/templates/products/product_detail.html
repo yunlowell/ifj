@@ -4,6 +4,11 @@
 
     <h2>상세 페이지</h2>
     <p>제목: {{ article.title }}</p>
+    
+    {% if article.image %}
+    <img src="{{ article.image.url }}">
+    {% endif %}
+
     <p>작성자: {{ article.author.username }}</p>
 
         <p>내용: {{ article.content }}</p>
@@ -18,5 +23,5 @@
         {% csrf_token %}
         <input type="submit" value="삭제">
     </form>
-    
+
 {% endblock content %}

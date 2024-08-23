@@ -22,11 +22,24 @@
         <!-- 작성된 글이 없을 때 문구 띄우고 글 작성하러 가기 링크 추가 -->
         {% empty %} 
             <li>아직 작성된 글이 없습니다.</li>
-            <a href="{% url 'articles:articles' %}">글 작성하러 가기</a>
+            <a href="{% url 'articles:create' %}">글 작성하러 가기</a>
 
         {% endfor %}
     </ul>
-    
+
+<h2>{{ request.user.username }}님이 찜한 글</h2>
+    <ul>
+        {% for article in liked_articles %}
+            <li>
+                <a href="{% url 'articles:article_detail' article.pk %}">{{ article.title }} </a>
+            </li>
+        {% empty %}
+            <li> 아직 찜한 글이 없습니다. </li>
+            <a href="{% url 'articles:articles' %}">글 둘러보기</a>
+        
+        {% endfor %}
+    </ul>
+
 <a href="{% url 'accounts:update' %}">회원정보수정</a>
 
 <form action="{% url 'accounts:delete' %}" method="POST">

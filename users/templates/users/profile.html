@@ -27,6 +27,9 @@
 
 <h3>Uesrname: {{ member.username }}</h3>
 <h5>가입일: {{ user.date_joined|date:"Y년 m월 d일" }} </h5>
+<!-- 팔로워 팔로잉 숫자 표시 -->
+<p>팔로워: {{ followers_count }}</p>
+<p>팔로잉: {{ following_count }}</p>
 <h2>{{ member.username }}님이 작성한 글</h2>
     <ul>
         <!-- 내가 작성한 글 보여주기, 제목만 보이게 누르면 그 글로 이동 -->

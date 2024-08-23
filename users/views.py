@@ -14,11 +14,17 @@ def profile(request, username):
     user_articles = Article.objects.filter(author=request.user).order_by('-created_at')
     liked_articles = Article.objects.filter(like_users=request.user).order_by('-created_at')
 
+
+    # 팔로워와 팔로잉 숫자를 계산
+    followers_count = member.followers.count()
+    following_count = member.following.count()
     
     context = {
         "member": member,
         "articles": user_articles,  # 사용자의 글 목록을 추가
         "liked_articles": liked_articles, #사용자가 찜한 글 목록 추가
+        "followers_count": followers_count,
+        "following_count": following_count,
     }
     return render(request, "users/profile.html", context)
 

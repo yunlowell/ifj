@@ -2,7 +2,22 @@
 {% load static %}
 
 {% block content %}
-<h1>{{ request.user.username }}의 프로필 페이지</h1>
+<h1>{{ member.username }}의 프로필 페이지</h1>
+<div>
+    <!-- 내 프로필에서는 팔로우 버튼 안 보이게 하기 -->
+    {% if request.user != member %}
+    <!-- 팔로우 언팔로우 기능 -->
+    <form action="{% url 'users:follow' member.pk %}" method="POST">
+        {% csrf_token %}
+
+        {% if request.user in member.followers.all %}
+            <input type="submit" value="언팔로우">
+        {% else %}
+            <input type="submit" value="팔로우">
+        {% endif %}
+    </form>
+    {% endif %}
+</div>
 
 {% if request.user.profile_image %}
     <img src="{{ request.user.profile_image.url }}" alt="User Profile Image" width="150">
@@ -10,9 +25,9 @@
     <img src="{% static 'users/user.png' %}" alt="Default Profile Image" width="150">
 {% endif %}
 
-<h3>Uesrname: {{ request.user.username }}</h3>
+<h3>Uesrname: {{ member.username }}</h3>
 <h5>가입일: {{ user.date_joined|date:"Y년 m월 d일" }} </h5>
-<h2>{{ request.user.username }}님이 작성한 글</h2>
+<h2>{{ member.username }}님이 작성한 글</h2>
     <ul>
         <!-- 내가 작성한 글 보여주기, 제목만 보이게 누르면 그 글로 이동 -->
         {% for article in articles %}
@@ -27,7 +42,7 @@
         {% endfor %}
     </ul>
 
-<h2>{{ request.user.username }}님이 찜한 글</h2>
+<h2>{{ member.username }}님이 찜한 글</h2>
     <ul>
         {% for article in liked_articles %}
             <li>

@@ -8,4 +8,10 @@
 
         <p>내용: {{ article.content }}</p>
 
-    {% endblock content %}
+    <a href="{% url 'articles:articles' %}">목록보기</a>
+
+    <a href="{% url 'articles:update' article.pk %}">
+        <button>수정하기</button>
+    </a>
+    
+{% endblock content %}

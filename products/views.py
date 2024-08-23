@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .models import Article
 from .forms import ArticleForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 
 
 # Create your views here.
@@ -34,3 +35,23 @@ def articles(request):
         "articles": articles,
     }
     return render(request, "products/products.html", context)
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def update(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == "POST":
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            article = form.save()
+            return redirect("articles:article_detail", article.pk)
+    else:
+        form = ArticleForm(instance=article)
+
+
+    context = {
+        "form": form,
+        "article": article,
+    }
+    return render(request, "products/update.html", context)
+

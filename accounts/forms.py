@@ -7,7 +7,7 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
+from .models import User
 
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -37,14 +37,18 @@ class CustomUserCreationForm(UserCreationForm):
         help_text="<li>확인을 위해 이전과 동일한 비밀번호를 입력하세요.</li>"
     )
 
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = [
             "first_name",
             "last_name",
             "email",
+            "profile_image"
         ]
 
     def __init__(self, *args, **kwargs):

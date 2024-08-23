@@ -16,7 +16,7 @@ def login(request):
         form = CustomLoginForm(data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            next_url = request.GET.get("next") or 'users:users'
+            next_url = request.GET.get("next") or 'articles:articles'
             return redirect(next_url)
     else:
         form = CustomLoginForm()
@@ -32,7 +32,7 @@ def login(request):
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
-    return redirect("users:users")
+    return redirect("articles:articles")
 
 
 @require_http_methods(["GET", "POST"])
@@ -42,7 +42,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect("users:users")
+            return redirect("articles:articles")
     else:
         form = CustomUserCreationForm()
     context = {
@@ -56,16 +56,16 @@ def delete(request):
     if request.user.is_authenticated:
         request.user.delete()
         auth_logout(request)
-    return redirect("users:users")
+    return redirect("articles:articles")
 
 
 @require_http_methods(["GET", "POST"])
 def update(request):
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, isinstance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("users:users")
+            return redirect("users:profile")
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
@@ -80,7 +80,7 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect("users:users")
+            return redirect("articles:articles")
     else:
         form = CustomPasswordChangeForm(request.user)
     context = {

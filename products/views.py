@@ -63,3 +63,14 @@ def delete(request, pk):
             article = get_object_or_404(Article, pk=pk)
             article.delete()
     return redirect("articles:articles")
+
+@require_POST
+def like(request, pk):
+    if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=pk)
+        if article.like_users.filter(pk=request.user.pk).exists():
+            article.like_users.remove(request.user) 
+        else:
+            article.like_users.add(request.user)
+        return redirect("articles:article_detail", pk=pk)
+    return redirect("accounts:login")

@@ -24,4 +24,13 @@
         <input type="submit" value="삭제">
     </form>
 
+    <form action="{% url "articles:like" article.pk %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in article.like_users.all %}
+            <input type="submit" value="찜풀기">
+        {% else %}
+            <input type="submit" value="찜하기">
+        {% endif %}
+    </form>
+
 {% endblock content %}

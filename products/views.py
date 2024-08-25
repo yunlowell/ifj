@@ -41,7 +41,7 @@ def articles(request):
 
     if sort_option == 'popular':
         articles = Article.objects.all().annotate(
-            like_count=Count('like_users')).order_by("-like_users")
+            like_count=Count('like_users')).order_by("-like_users", "-pk")
     else:
         articles = Article.objects.all().annotate(
             like_count=Count('like_users')).order_by("-pk")

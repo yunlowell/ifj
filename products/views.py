@@ -37,11 +37,18 @@ def article_detail(request, pk):
 
 
 def articles(request):
-    articles = Article.objects.all().annotate(
-        like_count=Count('like_users')).order_by("-pk")
+    sort_option = request.GET.get('sort', 'latest')
+
+    if sort_option == 'popular':
+        articles = Article.objects.all().annotate(
+            like_count=Count('like_users')).order_by("-like_users")
+    else:
+        articles = Article.objects.all().annotate(
+            like_count=Count('like_users')).order_by("-pk")
 
     context = {
         "articles": articles,
+        "sort_option": sort_option,
     }
     return render(request, "products/products.html", context)
 

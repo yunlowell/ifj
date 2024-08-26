@@ -28,6 +28,7 @@
 
         </form>
         <form action="{% url 'users:profile' username=request.user.username %}" method="GET">
+        <script src="https://kit.fontawesome.com/df979aa268.js" crossorigin="anonymous"></script>
             {% csrf_token %}
             <input type="submit" value="프로필" />
         </form>

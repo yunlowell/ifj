@@ -12,7 +12,7 @@
     <p>작성자: {{ article.author.username }}</p>
 
         <p>내용: {{ article.content }}</p>
-
+    
     <a href="{% url 'articles:articles' %}">목록보기</a>
 
     <a href="{% url 'articles:update' article.pk %}">

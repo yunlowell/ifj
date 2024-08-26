@@ -20,7 +20,7 @@
 </div>
 
 {% if request.user.profile_image %}
-    <img src="{{ request.user.profile_image.url }}" alt="User Profile Image" width="150">
+    <img src="{{ member.profile_image.url }}" alt="User Profile Image" width="150">
 {% else %}
     <img src="{% static 'users/user.png' %}" alt="Default Profile Image" width="150">
 {% endif %}

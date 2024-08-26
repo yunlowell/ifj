@@ -58,9 +58,9 @@ def articles(request):
 def update(request, pk):
     article = get_object_or_404(Article, pk=pk)
     if request.method == "POST":
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
-            article = form.save()
+            form.save()
             return redirect("articles:article_detail", article.pk)
     else:
         form = ArticleForm(instance=article)

@@ -6,7 +6,7 @@
     <p>제목: {{ article.title }}</p>
     
     {% if article.image %}
-    <img src="{{ article.image.url }}">
+    <img src="{{ article.image.url }}" alt="Product Image" width="600">
     {% endif %}
 
     <p>작성자: {{ article.author.username }}</p>

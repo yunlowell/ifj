@@ -19,11 +19,18 @@
 <a href="{% url 'accounts:login' %}">로그인하고 글 작성하기</a>
 {% endif %}
 
-{% for article in articles %}
-<a href="{% url 'articles:article_detail' article.pk %}">
-    <p>[ {{ article.pk }} ] {{ article.title }} 찜수: {{ article.like_count }} 조회수: {{ article.views }}</p>
-</a>
 
+{% for article in articles %}
+<div style="margin-top: 10px;">
+    {% if article.image %}
+        <div>
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" width="100" height="100">
+        </div>
+    {% endif %}
+    <a href="{% url 'articles:article_detail' article.pk %}">
+        <p>{{ article.title }} 찜수: {{ article.like_count }} 조회수: {{ article.views }}</p>
+    </a>
+</div>
 {% endfor %}
 
 {% endblock content %}

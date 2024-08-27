@@ -69,11 +69,16 @@
         text-align: right;
     }
 
-
-
     .article-footer2 {
         text-align: center;
         margin-top: 10px;
+    }
+
+    .article-price {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 20px;
     }
 
 </style>
@@ -94,16 +99,20 @@
             <span>♡ <span id="like-count">{{ article.like_users.count }}</span></span>
         </div>
     </div>
-    
-        <div class="article-footer">
-            <a href="{% url 'articles:update' article.pk %}" style="text-decoration: none;">
-                <button type="button" class="btn">수정</button>
-            </a>
-            <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline;">
-                {% csrf_token %}
-                <button type="submit" class="btn">삭제</button>
-            </form>
-        </div>
+
+    <p class="article-price">{{ formatted_price }}원</p>
+
+
+
+    <div class="article-footer">
+        <a href="{% url 'articles:update' article.pk %}" style="text-decoration: none;">
+            <button type="button" class="btn">수정</button>
+        </a>
+        <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn">삭제</button>
+        </form>
+    </div>
 
     {% if article.image %}
     <img src="{{ article.image.url }}" alt="Product Image" class="article-image">
@@ -129,5 +138,5 @@
             {% endif %}
         </form>
     </div>
-    
+
 {% endblock content %}

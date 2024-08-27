@@ -2,6 +2,14 @@
 
 {% block content %}
 
+<style>
+    .price-text {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+    }
+</style>
+
 <div class="container mt-4">
     <h2 class="mb-4">상품 목록</h2>
 
@@ -29,6 +37,7 @@
                     {% endif %}
                     <div class="card-body bg-light p-2">
                         <h6 class="card-title">{{ article.title }}</h6>
+                        <p class="card-text price-text">{{ article.formatted_price }}원</p>
                         <p class="card-text">찜수: {{ article.like_count }} 조회수: {{ article.views }}</p>
                     </div>
                 </div>

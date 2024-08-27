@@ -30,12 +30,18 @@ def article_detail(request, pk):
     article.views += 1
     article.save()
 
+    formatted_price = f"{article.price:,.0f}"
+
     context = {
         "article": article,
+        "formatted_price": formatted_price,
     }
 
     return render(request, "products/product_detail.html", context)
 
+
+
+from django.db.models import Count
 
 def articles(request):
     sort_option = request.GET.get('sort', 'latest')
@@ -47,11 +53,15 @@ def articles(request):
         articles = Article.objects.all().annotate(
             like_count=Count('like_users')).order_by("-pk")
 
+    for article in articles:
+        article.formatted_price = f"{article.price:,.0f}"
+
     context = {
         "articles": articles,
         "sort_option": sort_option,
     }
     return render(request, "products/products.html", context)
+
 
 
 @login_required

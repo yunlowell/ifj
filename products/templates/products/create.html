@@ -1,14 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>New Article</h2>
+<style>
+    .center-content {
+        display: flex;
+        flex-direction: column; /* 수직 정렬 */
+        align-items: center; /* 수평 중앙 정렬 */
+        height: 100vh; /* 화면 전체 높이 */
+        justify-content: start; /* 상단 정렬 */
+    }
+    .form-container {
+        width: 100%;
+        max-width: 600px; /* 폼의 최대 너비 설정 */
+        padding: 20px;
+        background: #ffffff; /* 폼 배경 색상 */
+        border-radius: 8px; /* 모서리 둥글게 */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    }
+</style>
 
-<form action="{% url 'articles:create' %}" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">저장</button>
-</form>
+<div class="container mt-4 center-content">
+    <div class="form-container">
+        <h2 class="text-center">게시물 작성</h2>
 
-<a href="{% url "articles:articles" %}">목록으로</a>
+        <form action="{% url 'articles:create' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.title }}
+            </div>
+            <div class="mb-3">
+                {{ form.content }}
+            </div>
+            <div class="mb-3">
+                {{ form.image }}
+            </div>
+            <!-- 'views' 필드를 폼에서 숨기고 기본값을 설정하기 위해 hidden input 추가 -->
+            <input type="hidden" name="views" value="0">
+            <button type="submit" class="btn btn-primary">저장</button>
+        </form>
 
+        <a href="{% url 'articles:articles' %}" class="btn btn-secondary mt-3 d-block mx-auto">목록으로</a>
+    </div>
+</div>
 {% endblock content %}

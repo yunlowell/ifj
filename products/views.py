@@ -42,16 +42,19 @@ def article_detail(request, pk):
 
 
 from django.db.models import Count
+from .models import Article
 
 def articles(request):
     sort_option = request.GET.get('sort', 'latest')
 
     if sort_option == 'popular':
-        articles = Article.objects.all().annotate(
-            like_count=Count('like_users')).order_by("-like_users", "-pk")
+        articles = Article.objects.annotate(
+            like_count=Count('like_users')
+        ).order_by("-like_count", "-pk").distinct()
     else:
-        articles = Article.objects.all().annotate(
-            like_count=Count('like_users')).order_by("-pk")
+        articles = Article.objects.annotate(
+            like_count=Count('like_users')
+        ).order_by("-pk").distinct()
 
     for article in articles:
         article.formatted_price = f"{article.price:,.0f}"
@@ -61,6 +64,7 @@ def articles(request):
         "sort_option": sort_option,
     }
     return render(request, "products/products.html", context)
+
 
 
 

@@ -67,7 +67,7 @@
     }
 
     .article-footer {
-        text-align: center;
+        text-align: right;
         margin-top: 20px;
     }
 
@@ -84,6 +84,27 @@
 
     .article-footer button:hover,
     .article-footer input[type="submit"]:hover {
+        background-color: #d0d0d0;
+    }
+
+    .article-footer2 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .article-footer2 button,
+    .article-footer2 input[type="submit"] {
+        background-color: #e0e0e0;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        margin: 0 5px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .article-footer2 button:hover,
+    .article-footer2 input[type="submit"]:hover {
         background-color: #d0d0d0;
     }
 </style>
@@ -112,20 +133,20 @@
                 {% csrf_token %}
                 <input type="submit" value="삭제">
             </form>
+        </div>
 
     {% if article.image %}
     <img src="{{ article.image.url }}" alt="Product Image" class="article-image">
     {% endif %}
-
-    <p class="content">{{ article.content }}</p>
-        <form action="{% url "articles:like" article.pk %}" method="POST" style="display: inline;">
-            {% csrf_token %}
-            {% if request.user in article.like_users.all %}
-                <input type="submit" value="♡찜풀기">
-            {% else %}
-                <input type="submit" value="♡찜하기">
-            {% endif %}
-        </form>
-    </div>
-</div>
+    <div class="article-footer2">
+        <p class="content">{{ article.content }}</p>
+            <form action="{% url "articles:like" article.pk %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                {% if request.user in article.like_users.all %}
+                    <input type="submit" value="♡찜풀기">
+                {% else %}
+                    <input type="submit" value="♡찜하기">
+                {% endif %}
+            </form>
+    </div>  
 {% endblock content %}

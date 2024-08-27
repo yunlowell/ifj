@@ -47,7 +47,7 @@ The Sparta Market project allows users to post transaction photos of used goods.
 
 
 ### Requirements
-![image description](media\images\requirements.png)
+![requirements](https://github.com/user-attachments/assets/d1a27efd-6b52-4ea8-b595-d7baeff2b952)
 
 ## Folder Structure
 ```bash

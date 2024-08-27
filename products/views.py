@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import Article
 from .forms import ArticleForm
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST
 from django.db.models import Count
@@ -96,3 +97,23 @@ def like(request, pk):
             article.like_users.add(request.user)
         return redirect("articles:article_detail", pk=pk)
     return redirect("accounts:login")
+
+
+@require_POST
+def like_article(request, article_id):
+    article = get_object_or_404(Article, id=article_id)
+    user = request.user
+
+    if user in article.like_users.all():
+        article.like_users.remove(user)
+    else:
+        article.like_users.add(user)
+
+    # Save the article to update the like_users field
+    article.save()
+
+    # Return the new like count
+    return JsonResponse({
+        'success': True,
+        'like_count': article.like_users.count()
+    })

@@ -21,11 +21,13 @@
             </form>
             {% endif %}
             
+            {% if request.user == member %}
             <a href="{% url 'accounts:update' %}" class="btn btn-outline-primary d-inline-block me-2">회원정보수정</a>
             <form action="{% url 'accounts:delete' %}" method="POST" class="d-inline-block">
                 {% csrf_token %}
                 <input type="submit" class="btn btn-outline-primary" value="회원탈퇴">
             </form>
+            {% endif %}
         </div>
 
     </div>
@@ -69,7 +71,9 @@
     {% empty %}
         <div class="col w-100">
             <div>아직 작성된 글이 없습니다.</div>
+            {% if request.user == member %}
             <a href="{% url 'articles:create' %}">글 작성하러 가기</a>
+            {% endif %}
         </div>
     {% endfor %}
 </div>
@@ -89,9 +93,11 @@
         </div>
         <!-- 찜된 글이 없을 때 문구 띄우고 글 작성하러 가기 링크 추가 -->
         {% empty %}
-        <div class="col">
+        <div class="col w-100">
             <div> 아직 찜한 글이 없습니다.</div>
+            {% if request.user == member %}
             <a href="{% url 'articles:articles' %}">글 둘러보기</a>
+            {% endif %}
         </div>
         
         {% endfor %}

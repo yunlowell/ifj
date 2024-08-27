@@ -1,36 +1,131 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+    .article-detail {
+        width: 60%;
+        margin: 0 auto; /* 페이지 가운데 정렬 */
+        padding: 20px;
+        border: 1px solid #ddd; /* 외곽선 */
+        background-color: #ffffff;
+    }
 
-    <h2>상세 페이지</h2>
-    <p>제목: {{ article.title }}</p>
+    .article-detail h2 {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .article-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .article-header .left-section {
+        display: flex;
+        align-items: center;
+    }
+
+    .article-header img.profile-pic {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .article-header p {
+        margin: 0;
+        font-size: 1em;
+    }
+
+    .article-header .right-section {
+        text-align: right;
+        font-size: 0.9em;
+        color: #888;
+    }
+
+    .article-header .right-section span {
+        margin-right: 10px;
+    }
+
+    .article-detail img.article-image {
+        width: 100%;
+        height: auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .article-detail p.content {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .article-footer {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .article-footer button,
+    .article-footer input[type="submit"] {
+        background-color: #e0e0e0;
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        margin: 0 5px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .article-footer button:hover,
+    .article-footer input[type="submit"]:hover {
+        background-color: #d0d0d0;
+    }
+</style>
+
+<div class="article-detail">
+    <h2>{{ article.title }}</h2>
+
+    <div class="article-header">
+        <div class="left-section">
+            {% if article.author.profile_image %}
+                <img src="{{ article.author.profile_image.url }}" alt="Profile Image" class="profile-pic">
+            {% endif %}
+            <p>{{ article.author.username }}</p>
+        </div>
+        <div class="right-section">
+            <span>조회수 {{ article.views }}</span>
+            <span>♡ {{ article.likes }}</span>
+        </div>
+    </div>
     
+        <div class="article-footer">
+            <a href="{% url 'articles:update' article.pk %}">
+                <button>수정</button>
+            </a>
+            <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <input type="submit" value="삭제">
+            </form>
+
     {% if article.image %}
-    <img src="{{ article.image.url }}" alt="Product Image" width="600">
+    <img src="{{ article.image.url }}" alt="Product Image" class="article-image">
     {% endif %}
 
-    <p>작성자: {{ article.author.username }}</p>
-
-        <p>내용: {{ article.content }}</p>
-    
-    <a href="{% url 'articles:articles' %}">목록보기</a>
-
-    <a href="{% url 'articles:update' article.pk %}">
-        <button>수정하기</button>
-    </a>
-    
-    <form action="{% url 'articles:delete' article.pk %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="삭제">
-    </form>
-
-    <form action="{% url "articles:like" article.pk %}" method="POST">
-        {% csrf_token %}
-        {% if request.user in article.like_users.all %}
-            <input type="submit" value="찜풀기">
-        {% else %}
-            <input type="submit" value="찜하기">
-        {% endif %}
-    </form>
-
+    <p class="content">{{ article.content }}</p>
+        <form action="{% url "articles:like" article.pk %}" method="POST" style="display: inline;">
+            {% csrf_token %}
+            {% if request.user in article.like_users.all %}
+                <input type="submit" value="♡찜풀기">
+            {% else %}
+                <input type="submit" value="♡찜하기">
+            {% endif %}
+        </form>
+    </div>
+</div>
 {% endblock content %}

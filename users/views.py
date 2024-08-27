@@ -12,9 +12,9 @@ def users(request):
 def profile(request, username):
     member = get_object_or_404(get_user_model(), username=username)
     user_articles = Article.objects.filter(
-        author=request.user).order_by('-created_at')
+        author=member).order_by('-created_at')
     liked_articles = Article.objects.filter(
-        like_users=request.user).order_by('-created_at')
+        like_users=member).order_by('-created_at')
 
     # 팔로워와 팔로잉 숫자를 계산
     followers_count = member.followers.count()

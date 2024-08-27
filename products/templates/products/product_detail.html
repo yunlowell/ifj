@@ -73,12 +73,11 @@
 
     .article-footer button,
     .article-footer input[type="submit"] {
-        background-color: #e0e0e0;
+        background-color: #ffffff;
         border: 1px solid #ccc;
-        padding: 10px 20px;
         margin: 0 5px;
         font-size: 1em;
-        border-radius: 5px;
+        border-radius: zpx;
         cursor: pointer;
     }
 
@@ -102,7 +101,7 @@
             {% if article.author.profile_image %}
                 <img src="{{ article.author.profile_image.url }}" alt="Profile Image" class="profile-pic">
             {% endif %}
-            <p>{{ article.author.username }}</p>
+            <a href="{% url 'users:profile' username=request.user.username %}">{{ article.author.username }}</a>
         </div>
         <div class="right-section">
             <span>조회수 {{ article.views }}</span>

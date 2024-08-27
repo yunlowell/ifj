@@ -20,9 +20,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
+        border-top: 1px solid #ccc;
+        padding-bottom: 5px;
     }
 
     .article-header .left-section {
@@ -68,27 +67,13 @@
 
     .article-footer {
         text-align: right;
-        margin-top: 20px;
     }
 
-    .article-footer button,
-    .article-footer input[type="submit"] {
-        background-color: #ffffff;
-        border: 1px solid #ccc;
-        margin: 0 5px;
-        font-size: 1em;
-        border-radius: zpx;
-        cursor: pointer;
-    }
 
-    .article-footer button:hover,
-    .article-footer input[type="submit"]:hover {
-        background-color: #d0d0d0;
-    }
 
     .article-footer2 {
         text-align: center;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
 </style>
@@ -105,17 +90,17 @@
         </div>
         <div class="right-section">
             <span>조회수 {{ article.views }}</span>
-            <span>♡ {{ article.likes }}</span>
+            <span>♡ {{ article.like_count }}</span>
         </div>
     </div>
     
         <div class="article-footer">
-            <a href="{% url 'articles:update' article.pk %}">
-                <button>수정</button>
+            <a href="{% url 'articles:update' article.pk %}" style="text-decoration: none;">
+                <button type="button" class="btn">수정</button>
             </a>
             <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline;">
                 {% csrf_token %}
-                <input type="submit" value="삭제">
+                <button type="submit" class="btn">삭제</button>
             </form>
         </div>
 
@@ -143,5 +128,5 @@
             {% endif %}
         </form>
     </div>
-      
+    
 {% endblock content %}

@@ -30,11 +30,15 @@ def article_detail(request, pk):
     article.views += 1
     article.save()
 
+    formatted_price = f"{article.price:,.0f}"
+
     context = {
         "article": article,
+        "formatted_price": formatted_price,
     }
 
     return render(request, "products/product_detail.html", context)
+
 
 
 def articles(request):

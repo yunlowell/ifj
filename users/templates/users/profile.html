@@ -46,7 +46,7 @@
                 <h5>팔로잉: {{ following_count }}</h5>
             </div>
          </div>
-{% if request.user.profile_image %}
+{% if member.profile_image %}
     <img src="{{ member.profile_image.url }}" alt="User Profile Image" width="150">
 {% else %}
     <img src="{% static 'users/user.png' %}" alt="Default Profile Image" width="150">

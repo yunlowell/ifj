@@ -87,7 +87,7 @@
             {% if article.author.profile_image %}
                 <img src="{{ article.author.profile_image.url }}" alt="Profile Image" class="profile-pic">
             {% endif %}
-            <a href="{% url 'users:profile' username=request.user.username %}">{{ article.author.username }}</a>
+            <a href="{% url 'users:profile' username=article.author.username %}">{{ article.author.username }}</a>
         </div>
         <div class="right-section">
             <span>조회수 {{ article.views }}</span>

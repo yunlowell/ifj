@@ -81,28 +81,28 @@
 <br>
 
 <h4 align="left">{{ member.username }}님이 찜한 글</h4>
+
 <div class="row row-cols-1 row-cols-md-6 g-4">
-    <div class="col w-100">
-        {% for article in liked_articles %}
-        <!-- 내가 찜한 글 보여주기, 제목만 보이게 누르면 그 글로 이동 -->
+    <!-- 내가 찜한 글 보여주기, 제목만 보이게 누르면 그 글로 이동 -->
+    {% for article in liked_articles %}
+    <div class="col">
         <div class="card" style="width:100px;">
             <a href="{% url 'articles:article_detail' article.pk %}"><img src="{{ article.image.url }}" alt="{{ article.title }}" width="100" height="100"></a>
             <div class="card-body">
                 <p class="card-text"><a href="{% url 'articles:article_detail' article.pk %}">{{ article.title }}</a></p>
             </div>
         </div>
-        <!-- 찜된 글이 없을 때 문구 띄우고 글 작성하러 가기 링크 추가 -->
-        {% empty %}
+    </div>
+    {% empty %}
         <div class="col w-100">
-            <div> 아직 찜한 글이 없습니다.</div>
+            <div>아직 찜한 글이 없습니다.</div>
             {% if request.user == member %}
-            <a href="{% url 'articles:articles' %}">글 둘러보기</a>
+            <a href="{% url 'articles:create' %}">글 목록보러가기</a>
             {% endif %}
         </div>
-        
-        {% endfor %}
-    </div>
+    {% endfor %}
 </div>
+
 
 </div>
 </div>

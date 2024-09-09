@@ -11,7 +11,7 @@ The Sparta Market project allows users to post transaction photos of used goods.
 ## Team Roles and Responsibilities
 |Team Member|Responsibilities|
 |:--|:--|
-|운율|- Documentation (Sofware Architecture)<br>- Basic Skeleton Implementation<br>- User Profile Features(username, join_date, view registered posts, see 'Like' post, view follow & following)<br>- CSS: Detailed page Template
+|윤율|- Documentation (Sofware Architecture)<br>- Basic Skeleton Implementation<br>- User Profile Features(username, join_date, view registered posts, see 'Like' post, view follow & following)<br>- CSS: Detailed page Template
 |이규호|- Basic Skeleton Implementation<br>- Member Features(upload a profile picture, Default profile)<br>- Product Price Setting<br>- CSS: Main home, Navigation bar|
 |김석환|- Basic Skeleton Implementation<br>- Posting Features(product list page, detailed page, CRUD features, 'Like' feature)<br>- CSS: Writing page Template|
 |이광욱|- Basic Skeleton Implementation<br>- Posting Features('Like' count, vistor count, sort posts by most recent/popularity)<br>- CSS: Profile page Template|
